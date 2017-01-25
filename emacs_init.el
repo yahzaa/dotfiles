@@ -23,7 +23,8 @@
     material-theme
     py-autopep8
     smartparens
-    org))
+    org
+    web-mode))
 
 (mapc #'(lambda (package)
           (unless (package-installed-p package)
@@ -40,36 +41,28 @@
 (fset 'yes-or-no-p 'y-or-n-p) ;; Changes all yes/no questions to y/n type
 (setq-default frame-title-format "%b (%f)") ;; full path in title bar
 (set-default-font "Monaco 12")
+(setq tab-width 4)
+(custom-set-variables
+ '(tab-stop-alist (quote (4 8 12 16 20 24 28 32 36 40 44 48 52 56 60 64 68 72 76 80
+                            84 88 92 96 100 104 108 112 116 120))))
 
 (require 'elpy)
 (elpy-enable)
 
 (when (require 'flycheck nil t)
   (setq elpy-modules (delq 'elpy-module-flymake elpy-modules))
+  (setq flycheck-highlighting-mode 'lines)
   (add-hook 'elpy-mode-hook 'flycheck-mode))
 
-(require 'py-autopep8)
-(add-hook 'elpy-mode-hook 'py-autopep8-enable-on-save)
+;;(require 'py-autopep8)
+;;(add-hook 'elpy-mode-hook 'py-autopep8-enable-on-save)
 
 (require 'smartparens)
 (add-hook 'clojure-mode-hook #'smartparens-strict-mode)
-;; init.el ends here
-
-(defun set-exec-path-from-shell-PATH ()
-  (let ((path-from-shell (replace-regexp-in-string
-                          "[ \t\n]*$"
-                          ""
-                          (shell-command-to-string "$SHELL --login -i -c 'echo $PATH'"))))
-    (setenv "PATH" path-from-shell)
-    (setq eshell-path-env path-from-shell) ; for eshell users
-    (setq exec-path (split-string path-from-shell path-separator))))
-
-(when window-system (set-exec-path-from-shell-PATH))
-
-(setenv "GOPATH" "/home/ck/code/go")
-(add-to-list 'exec-path "/home/ck/code/go")
-(add-hook 'before-save-hook 'gofmt-before-save)
 
 ;; setup slime
-;;(load (expand-file-name "~/quicklisp/slime-helper.el"))
-;;(setq inferior-lisp-program "sbcl")
+(load (expand-file-name "~/quicklisp/slime-helper.el"))
+(setq inferior-lisp-program "sbcl")
+
+(require 'web-mode)
+(add-to-list 'auto-mode-alist '("\\.html?\\'" . web-mode))
