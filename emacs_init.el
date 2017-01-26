@@ -54,15 +54,15 @@
   (setq flycheck-highlighting-mode 'lines)
   (add-hook 'elpy-mode-hook 'flycheck-mode))
 
-;;(require 'py-autopep8)
-;;(add-hook 'elpy-mode-hook 'py-autopep8-enable-on-save)
+(require 'py-autopep8)
+(add-hook 'elpy-mode-hook 'py-autopep8-enable-on-save)
 
 (require 'smartparens)
 (add-hook 'clojure-mode-hook #'smartparens-strict-mode)
 
 ;; setup slime
-(load (expand-file-name "~/quicklisp/slime-helper.el"))
-(setq inferior-lisp-program "sbcl")
+;;(load (expand-file-name "~/quicklisp/slime-helper.el"))
+;;(setq inferior-lisp-program "sbcl")
 
 (require 'web-mode)
 (add-to-list 'auto-mode-alist '("\\.html?\\'" . web-mode))
