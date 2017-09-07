@@ -2,5 +2,12 @@
 Config files
 
 ## Install instructions
-* git clone git@github.com:yahzaa/dotfiles.git && cd dotfiles
-* Run setup.sh
+
+### Emacs setup
+* mkdir ~/.emacs.d/
+* ln -s emacs_init.el ~/.emacs.d/init.el
+* Launch emacs and wait for package installation to finish.
+
+### i3 setup
+* cp i3config ~/.config/i3/config
+* CMD + Shift + c to reload config
